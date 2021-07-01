@@ -7,8 +7,10 @@ public class MovementScript : MonoBehaviour
 {
     private Transform transform;
     private BoxCollider2D collider2D;
-    private Vector2 rawInputData;
-    // Start is called before the first frame update
+    private Vector2 moveDirection;
+    public Vector2 MoveDirection {
+        set {moveDirection = value;}
+    }
     [SerializeField]
     private float speed;
     void Start()
@@ -18,10 +20,8 @@ public class MovementScript : MonoBehaviour
     }
 
     private void Update() {
-
         //TODO: Ramping velocity on the player
-        //TODO: Seperate input and collision
-        Vector3 move = new Vector3(rawInputData.x, rawInputData.y, 0) * Time.deltaTime * speed;
+        Vector3 move = new Vector3(moveDirection.x, moveDirection.y, 0) * Time.deltaTime * speed;
         RaycastHit2D hit = Physics2D.BoxCast(transform.position, collider2D.size, 0, new Vector2(move.x, move.y), Mathf.Abs(move.magnitude), LayerMask.GetMask("Floor"));
     
         if (hit.collider == null){
@@ -29,7 +29,5 @@ public class MovementScript : MonoBehaviour
         };
     }
 
-    public void Move(InputAction.CallbackContext context) {
-        rawInputData = context.ReadValue<Vector2>();
-    }
+
 }
