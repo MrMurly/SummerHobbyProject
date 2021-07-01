@@ -22,7 +22,7 @@ public class MovementScript : MonoBehaviour
         //TODO: Ramping velocity on the player
         //TODO: Seperate input and collision
         Vector3 move = new Vector3(rawInputData.x, rawInputData.y, 0) * Time.deltaTime * speed;
-        RaycastHit2D hit = Physics2D.BoxCast(transform.position, collider2D.size, 0, new Vector2(0, move.y), Mathf.Abs(move.y), LayerMask.GetMask("Floor"));
+        RaycastHit2D hit = Physics2D.BoxCast(transform.position, collider2D.size, 0, new Vector2(move.x, move.y), Mathf.Abs(move.magnitude), LayerMask.GetMask("Floor"));
     
         if (hit.collider == null){
             transform.Translate(move);
